@@ -1,0 +1,92 @@
+  .payoutsApproveAll {
+    color: black; 
+    background-color: #FFCA2C;
+    border: 0;
+}
+
+.payoutsApproveAll:hover {
+    color:  white; 
+    background-color: #F59E0B;
+}
+
+.payoutsTable {
+    min-width: 700px;
+}
+
+.payoutsTable th {
+    padding: 12px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.payoutsTable td {
+    padding: 16px 12px;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.payoutsTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+ .payoutsPersonButtons{
+    width: max-content;
+ }
+
+@media (max-width: 575px) {
+
+    .payoutsApproveAll {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .payoutsTable {
+        min-width: 650px;
+    }
+
+    .payoutsTable th {
+        font-size: 11px;
+    }
+
+    .payoutsTable td {
+        padding: 14px 10px;
+        font-size: 13px;
+    }
+
+}  
+ 
+.payoutsPersonBtn {
+    border: 1px solid var(--color-border);
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.payoutsPersonBtn.active {
+    color: var(--color-text);
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.payoutsPersonBtn:hover {
+    color: var(--color-text);
+} 
+
+@media (max-width: 575px) {
+
+    .payoutsPersonButtons {
+        gap: 6px;
+    }
+
+    .payoutsPersonBtn {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+
+}  

@@ -1,0 +1,115 @@
+.languageBox {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.qualityItem {
+    min-height: 80px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.qualityItem:last-child {
+    border-bottom: 0;
+}
+
+.reviewButton {
+    min-width: 89px;
+    height: 39px;
+}
+
+.reviewCard {
+    border: 1px solid var(--color-border) !important;
+}
+
+.reviewText {
+    min-height: 61px;
+    background: var(--color-bg);
+    color: var(--color-text); 
+    border: 1px solid var(--color-border);
+}
+
+.qualityRange {
+    height: 6px;
+    padding: 0;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.qualityRange::-webkit-slider-runnable-track {
+    height: 6px;
+    background: transparent;
+    border-radius: 10px;
+}
+
+.qualityRange::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -7px;
+    background: var(--color-focus);
+    border: 0;
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.qualityRange::-moz-range-track {
+    height: 6px;
+    background: transparent;
+    border-radius: 10px;
+}
+
+.qualityRange::-moz-range-progress {
+    background: var(--color-focus);
+}
+
+.qualityRange::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-focus);
+    border: 0;
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.feedbackBox {
+    min-height: 88px;
+    resize: vertical;
+    border: 1px solid var(--color-border);
+}
+
+.feedbackBox:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+@media (max-width: 575px) {
+
+    .qualityItem {
+        align-items: flex-start !important;
+    }
+
+    .reviewButton {
+        min-width: 75px;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .qualityItem {
+        flex-wrap: wrap;
+    }
+
+    .reviewButton {
+        margin-left: 60px;
+    }
+
+}

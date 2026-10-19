@@ -1,0 +1,64 @@
+.userDetailsAvatar {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.userDetailsActive {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #e1f7ee;
+    color: #087f5b;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.documentIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #edf2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.documentApproved {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #e1f7ee;
+    color: #087f5b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.jobStatus {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #edf2ff;
+    color: #3157a5;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+@media (max-width: 575px) {
+    .userDetailsAvatar {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        font-size: 17px;
+    }
+
+    .card-body {
+        padding: 1rem !important;
+    }
+}

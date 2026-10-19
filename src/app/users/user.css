@@ -1,0 +1,235 @@
+  /* .usersTable {
+    min-width: 850px;
+}
+
+.usersTable th {
+    padding: 14px 12px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.usersTable td {
+    padding: 15px 12px;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.usersTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.userStatus {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.userActive {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.userSuspended {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+@media (max-width: 767px) {
+
+    .usersTable {
+        min-width: 750px;
+    }
+
+    .usersTable th,
+    .usersTable td {
+        padding: 12px 10px;
+    }
+
+    .userAvatar {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .usersTable {
+        min-width: 700px;
+    }
+
+    .usersTable th {
+        font-size: 11px;
+    }
+
+    .usersTable td {
+        font-size: 13px;
+    }
+
+}
+
+
+
+ 
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .usersTable {
+    min-width: 850px;
+}
+
+.usersTable th {
+    padding: 14px 12px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.usersTable td {
+    padding: 15px 12px;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.usersTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.userStatus {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.userActive {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.userSuspended {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+@media (max-width: 767px) {
+
+    .usersTable {
+        min-width: 750px;
+    }
+
+    .usersTable th,
+    .usersTable td {
+        padding: 12px 10px;
+    }
+
+    .userAvatar {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .usersTable {
+        min-width: 700px;
+    }
+
+    .usersTable th {
+        font-size: 11px;
+    }
+
+    .usersTable td {
+        font-size: 13px;
+    }
+
+}
+
+
+/* Action Dropdown */
+
+.actionWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.actionDropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 140px;
+    padding: 5px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+}
+
+.actionOption {
+    width: 100%;
+    display: block;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.actionOption:hover {
+    background: var(--color-light);
+}

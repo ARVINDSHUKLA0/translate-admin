@@ -1,0 +1,144 @@
+.disputeCard {
+    min-height: 310px;
+}
+
+.ticketCard {
+    min-height: 310px;
+}
+
+.disputeCard .card-body {
+    padding: 30px;
+}
+
+.ticketCard .card-body {
+    padding: 28px;
+}
+
+.disputeItem {
+    min-height: 81px;
+    padding: 16px 6px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.disputeItem:last-child {
+    border-bottom: 0;
+}
+
+.disputeIcon {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.openIcon {
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+}
+
+.reviewIcon {
+    color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.disputeTitle {
+    font-size: 17px;
+}
+
+.disputeSubtitle {
+    font-size: 16px;
+}
+
+.disputeStatus {
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.openStatus {
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+}
+
+.reviewStatus {
+    color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+ 
+
+.ticketCard .form-select {
+    height: 52px;
+}
+
+.resolveButton {
+    height: 50px; 
+}
+
+@media (max-width: 991px) {
+
+    .disputeCard,
+    .ticketCard {
+        min-height: auto;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .disputeCard .card-body,
+    .ticketCard .card-body {
+        padding: 20px;
+    }
+
+    .disputeItem {
+        gap: 15px;
+    }
+
+    .disputeTitle {
+        font-size: 15px;
+    }
+
+    .disputeSubtitle {
+        font-size: 14px;
+    }
+
+    .disputeStatus {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .disputeItem {
+        align-items: flex-start;
+    }
+
+    .disputeIcon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .disputeItem > div:first-child {
+        min-width: 0;
+    }
+
+    .disputeTitle,
+    .disputeSubtitle {
+        overflow-wrap: anywhere;
+    }
+
+    .disputeStatus {
+        margin-top: 3px;
+    }
+
+}

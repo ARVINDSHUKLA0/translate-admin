@@ -1,0 +1,152 @@
+.icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+} 
+.green{
+    color:#059669;
+}
+.custom-btn-g
+.red{
+    color:#de2626d0;
+}
+.success {
+    color: var(--color-success);
+    background: var(--color-success-bg);
+}
+
+.primary {
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.warning {
+    color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.danger {
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+}
+ 
+.chart {
+    height: 145px;
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+}
+ 
+
+.barItem {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+}
+
+.bar {
+    width: 100%;
+    max-width: 98px;
+    background: var(--color-primary);
+    border-radius: 5px 5px 0 0;
+}
+
+.lastBar {
+    background: var(--color-chart-last);
+}
+
+.queueItem {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.queueItem:last-child {
+    border-bottom: 0;
+}
+
+.queueAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--color-avatar-bg);
+    color: var(--color-avatar-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.userAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 20px; 
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.active {
+    color: var(--color-success);
+    background: var(--color-success-bg);
+}
+
+.pending {
+    color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.suspended {
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+}
+
+.dispute {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.dispute:last-child {
+    border-bottom: 0;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: var(--color-dot);
+    flex-shrink: 0;
+}
+
+.hoverBtn{
+    background-color:#D97706 ;
+    
+}
+
+.hoverBtn:hover {
+    background-color: #d97706cb !important;
+    border-color: #D97706 !important;
+    color: #ffffff !important;
+}
