@@ -7,7 +7,9 @@
 // import './feature.css'
 
 
-// const API_URL = 'http://localhost:8000/api/service-addons'
+// import Url from '@/Url'
+
+// const API_URL = `${Url}/api/service-addons`
 
 
 // const emptyForm = {
@@ -721,16 +723,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 'use client'
 
 import React, { useEffect, useState } from 'react'
@@ -741,6 +733,7 @@ import './feature.css'
 
 
 import Url from '@/Url'
+import { peek, setCache, fetchList, API_ENDPOINTS } from '@/lib/apiCache'
 
 const API_URL = `${Url}/api/service-addons`
 
@@ -794,7 +787,8 @@ const showError = (title, text) => {
 
 const Page = () => {
 
-    const [features, setFeatures] = useState([])
+    const [features, setFeatures] = useState(() => peek(API_ENDPOINTS.features) || [])
+    const [loaded, setLoaded] = useState(() => peek(API_ENDPOINTS.features) !== undefined)
 
     const [form, setForm] = useState(emptyForm)
 
@@ -811,9 +805,9 @@ const Page = () => {
 
         try {
 
-            const result = await request(`${API_URL}?includeInactive=true`)
+            const list = await fetchList(API_ENDPOINTS.features)
 
-            setFeatures(Array.isArray(result.data) ? result.data : [])
+            setFeatures(list)
 
         } catch (error) {
 
@@ -821,8 +815,16 @@ const Page = () => {
 
             showError('Error', error.message)
 
+        } finally {
+
+            setLoaded(true)
+
         }
     }
+
+    useEffect(() => {
+        if (loaded) setCache(API_ENDPOINTS.features, features)
+    }, [features, loaded])
 
 
     useEffect(() => {
@@ -1328,7 +1330,9 @@ const Page = () => {
 
                             <tbody>
 
-                                {filteredFeatures.length === 0 ? (
+                                {!loaded && features.length === 0 ? (
+                                    <tr><td colSpan="5" className="feature-empty">Loading...</td></tr>
+                                ) : filteredFeatures.length === 0 ? (
 
                                     <tr>
 

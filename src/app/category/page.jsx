@@ -3,7 +3,9 @@
 // import Swal from 'sweetalert2'
 // import './category.css'
 
-// const API_URL = 'http://localhost:8000/api/categories'
+// import Url from '@/Url'
+
+// const API_URL = `${Url}/api/categories`
 
 // const request = async (url, options) => {
 //     // const response = await fetch(url, options)
@@ -638,12 +640,29 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 'use client'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import './category.css'
 
 import Url from '@/Url'
+import { peek, setCache, fetchList } from '@/lib/apiCache'
 
 const API_URL = `${Url}/api/categories`
 
@@ -679,7 +698,8 @@ const showError = (title, text) =>
 
 const Page = () => {
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState(() => peek(API_URL) || [])
+    const [loaded, setLoaded] = useState(() => peek(API_URL) !== undefined)
 
     const [categoryName, setCategoryName] = useState('')
     const [categoryImage, setCategoryImage] = useState(null)
@@ -697,18 +717,20 @@ const Page = () => {
 
     const getCategories = async () => {
         try {
-            const result = await request(API_URL)
-
-            setCategories(
-                Array.isArray(result.data)
-                    ? result.data
-                    : []
-            )
+            const list = await fetchList(API_URL)
+            setCategories(list)
         } catch (error) {
             console.error('GET CATEGORIES ERROR:', error)
             showError('Error', error.message)
+        } finally {
+            setLoaded(true)
         }
     }
+
+    // keep cache in sync with optimistic add/edit/delete
+    useEffect(() => {
+        if (loaded) setCache(API_URL, categories)
+    }, [categories, loaded])
 
     useEffect(() => {
         getCategories()
@@ -1102,7 +1124,9 @@ const Page = () => {
 
                             <tbody>
 
-                                {currentCategories.length === 0 ? (
+                                {!loaded && categories.length === 0 ? (
+                                    <tr><td colSpan="4" className="text-center py-5 text-muted">Loading...</td></tr>
+                                ) : currentCategories.length === 0 ? (
 
                                     <tr>
 

@@ -4,7 +4,9 @@
 // import Swal from 'sweetalert2'
 // import './subcategory.css'
 
-// const API = 'http://localhost:8000/api'
+// import Url from '@/Url'
+
+// const API = `${Url}/api`
 // const subApi = `${API}/subcategories`
 // const catApi = `${API}/categories`
 
@@ -574,11 +576,6 @@
 
 
 
-
-
-
-
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -586,6 +583,7 @@ import Swal from 'sweetalert2'
 import './subcategory.css'
 
 import Url from '@/Url'
+import { peek, setCache, fetchList } from '@/lib/apiCache'
 
 const API = `${Url}/api`
 const subApi = `${API}/subcategories`
@@ -623,8 +621,9 @@ const idOf = (item) => item.category?._id || item.category
 
 const Page = () => {
 
-    const [categories, setCategories] = useState([])
-    const [items, setItems] = useState([])
+    const [categories, setCategories] = useState(() => peek(catApi) || [])
+    const [items, setItems] = useState(() => peek(subApi) || [])
+    const [loaded, setLoaded] = useState(() => peek(subApi) !== undefined)
 
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
@@ -641,17 +640,23 @@ const Page = () => {
 
     const load = async () => {
         try {
-            const [catData, subData] = await Promise.all([
-                request(catApi),
-                request(subApi)
+            const [cats, subs] = await Promise.all([
+                fetchList(catApi),
+                fetchList(subApi)
             ])
 
-            setCategories(catData.data || [])
-            setItems(subData.data || [])
+            setCategories(cats)
+            setItems(subs)
         } catch (error) {
             showError(error.message)
+        } finally {
+            setLoaded(true)
         }
     }
+
+    useEffect(() => {
+        if (loaded) setCache(subApi, items)
+    }, [items, loaded])
 
     useEffect(() => {
         load()
@@ -1094,6 +1099,8 @@ const Page = () => {
                                             </tr>
                                         )
                                     )
+                                ) : !loaded ? (
+                                    <tr><td colSpan="5" className="text-center py-5 text-muted">Loading...</td></tr>
                                 ) : (
                                     <tr>
                                         <td

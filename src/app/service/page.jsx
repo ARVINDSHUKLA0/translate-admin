@@ -1,4 +1,4 @@
-//  'use client'
+// 'use client'
 
 // import { useEffect, useMemo, useRef, useState } from 'react'
 // import dynamic from 'next/dynamic'
@@ -6,7 +6,9 @@
 // import 'react-quill-new/dist/quill.snow.css'
 // import './Service.css'
 
-// const API = 'http://localhost:8000/api'
+// import Url from '@/Url'
+
+// const API = `${Url}/api`
 
 // const serviceApi = `${API}/services`
 // const categoryApi = `${API}/categories`
@@ -3111,11 +3113,6 @@
 
 
 
-
-
-
-
-
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -3125,6 +3122,7 @@ import 'react-quill-new/dist/quill.snow.css'
 import './Service.css'
 
 import Url from '@/Url'
+import { peek, setCache, fetchList } from '@/lib/apiCache'
 
 const API = `${Url}/api`
 
@@ -3222,11 +3220,14 @@ const emptyForm = {
 
 const Page = () => {
 
-    const [services, setServices] = useState([])
+    const [services, setServices] = useState(() =>
+        (peek(serviceApi) || []).filter((item) => item.status !== 'archived')
+    )
+    const [servicesLoaded, setServicesLoaded] = useState(() => peek(serviceApi) !== undefined)
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState(() => peek(categoryApi) || [])
 
-    const [subcategories, setSubcategories] = useState([])
+    const [subcategories, setSubcategories] = useState(() => peek(subcategoryApi) || [])
 
     // Mutations are optimistic: the table updates immediately while the API runs in the background.
     const mutationVersionRef = useRef(0)
@@ -3271,14 +3272,7 @@ const Page = () => {
 
         try {
 
-            const result =
-                await request(categoryApi)
-
-            setCategories(
-                Array.isArray(result.data)
-                    ? result.data
-                    : []
-            )
+            setCategories(await fetchList(categoryApi))
 
         } catch (error) {
 
@@ -3303,14 +3297,7 @@ const Page = () => {
 
         try {
 
-            const result =
-                await request(subcategoryApi)
-
-            setSubcategories(
-                Array.isArray(result.data)
-                    ? result.data
-                    : []
-            )
+            setSubcategories(await fetchList(subcategoryApi))
 
         } catch (error) {
 
@@ -3360,6 +3347,7 @@ const Page = () => {
                     : serviceApi
 
             const result = await request(url)
+            if (!query) setCache(serviceApi, Array.isArray(result.data) ? result.data : [])
 
             // Never let an older GET overwrite an optimistic mutation.
             // Also ignore GET responses while a mutation is still pending.
@@ -3389,6 +3377,10 @@ const Page = () => {
                 'GET SERVICES ERROR:',
                 error
             )
+
+        } finally {
+
+            setServicesLoaded(true)
 
         }
     }
@@ -5971,7 +5963,11 @@ const Page = () => {
 
                             <tbody>
 
-                                {visibleServices.length === 0 && (
+                                {!servicesLoaded && visibleServices.length === 0 && (
+                                    <tr><td colSpan="7" className="text-center py-5 text-muted">Loading...</td></tr>
+                                )}
+
+                                {servicesLoaded && visibleServices.length === 0 && (
 
                                     <tr>
 
