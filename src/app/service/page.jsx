@@ -1,4 +1,4 @@
-// 'use client'
+//  'use client'
 
 // import { useEffect, useMemo, useRef, useState } from 'react'
 // import dynamic from 'next/dynamic'
@@ -19,8 +19,8 @@
 
 // const request = async (url, options = {}) => {
 
-//     const response = await fetch(url, options)
-
+//     // const response = await fetch(url, options)
+//     const response = await fetch(url, { ...options, credentials: 'include' })
 //     const result = await response.json()
 
 //     if (!response.ok || result.success === false) {
@@ -76,7 +76,7 @@
 //     ratingAverage: 0,
 //     totalReviews: 0,
 
-//     deliveryValue: 1,
+//     deliveryRange: '1',
 //     deliveryUnit: 'day',
 
 //     images: [],
@@ -88,7 +88,6 @@
 //     startingPriceCurrency: 'USD',
 
 //     discountEnabled: false,
-//     discountType: 'percentage',
 //     discountValue: 0,
 //     discountCurrency: 'USD',
 
@@ -612,8 +611,11 @@
 //                 service.translatorInfo
 //                     ?.rating?.totalReviews || 0,
 
-//             deliveryValue:
-//                 service.delivery?.value || 1,
+//             deliveryRange:
+//                 service.delivery?.range ||
+//                 (service.delivery?.value !== undefined
+//                     ? String(service.delivery.value)
+//                     : '1'),
 
 //             deliveryUnit:
 //                 service.delivery?.unit || 'day',
@@ -640,8 +642,6 @@
 //             discountEnabled:
 //                 Boolean(service.discount?.enabled),
 
-//             discountType:
-//                 service.discount?.type || 'percentage',
 
 //             discountValue:
 //                 service.discount?.value || 0,
@@ -822,7 +822,7 @@
 //                 }
 //             },
 //             delivery: {
-//                 value: Number(form.deliveryValue) || 1,
+//                 range: String(form.deliveryRange || '').trim(),
 //                 unit: form.deliveryUnit
 //             },
 //             purchaseModes: {
@@ -834,7 +834,6 @@
 //                 form.startingPriceCurrency.toUpperCase(),
 //             discount: {
 //                 enabled: Boolean(form.discountEnabled),
-//                 type: form.discountType,
 //                 value: Number(form.discountValue) || 0,
 //                 currency: form.discountCurrency.toUpperCase()
 //             },
@@ -1063,7 +1062,7 @@
 //         formData.append(
 //             'delivery',
 //             JSON.stringify({
-//                 value: Number(form.deliveryValue) || 1,
+//                 range: String(form.deliveryRange || '').trim(),
 //                 unit: form.deliveryUnit
 //             })
 //         )
@@ -1089,7 +1088,6 @@
 //             'discount',
 //             JSON.stringify({
 //                 enabled: Boolean(form.discountEnabled),
-//                 type: form.discountType,
 //                 value: Number(form.discountValue) || 0,
 //                 currency: form.discountCurrency.toUpperCase()
 //             })
@@ -1158,7 +1156,7 @@
 //                     }
 //                 },
 //                 delivery: {
-//                     value: Number(form.deliveryValue) || 1,
+//                     range: String(form.deliveryRange || '').trim(),
 //                     unit: form.deliveryUnit
 //                 },
 //                 purchaseModes: {
@@ -1171,7 +1169,6 @@
 //                     form.startingPriceCurrency.toUpperCase(),
 //                 discount: {
 //                     enabled: Boolean(form.discountEnabled),
-//                     type: form.discountType,
 //                     value: Number(form.discountValue) || 0,
 //                     currency:
 //                         form.discountCurrency.toUpperCase()
@@ -1973,23 +1970,26 @@
 //                                     <div className="col-lg-6 col-md-6 col-sm-12">
 
 //                                         <label className="form-label">
-//                                             Delivery Value
+//                                             Delivery Range
 //                                         </label>
 
 //                                         <input
-//                                             type="number"
-//                                             min="1"
+//                                             type="text"
 //                                             className="form-control"
-//                                             value={
-//                                                 form.deliveryValue
-//                                             }
+//                                             value={form.deliveryRange}
 //                                             onChange={(event) =>
 //                                                 updateForm(
-//                                                     'deliveryValue',
+//                                                     'deliveryRange',
 //                                                     event.target.value
 //                                                 )
 //                                             }
+//                                             placeholder="2-4"
+//                                             inputMode="numeric"
 //                                         />
+
+//                                         <small className="text-muted">
+//                                             Example: 2-4 or 0-1
+//                                         </small>
 
 //                                     </div>
 
@@ -2135,36 +2135,34 @@
 //                                     Starting Price
 //                                 </h3>
 
-
 //                                 <div className="row g-3">
 
 //                                     <div className="col-lg-6 col-md-6 col-sm-12">
 
 //                                         <label className="form-label">
-//                                             Starting Price (cents)
+//                                             Starting Price
 //                                         </label>
 
 //                                         <input
 //                                             type="number"
 //                                             min="0"
+//                                             step="0.01"
 //                                             className="form-control"
-//                                             value={
-//                                                 form.startingPrice
-//                                             }
+//                                             value={form.startingPrice}
 //                                             onChange={(event) =>
 //                                                 updateForm(
 //                                                     'startingPrice',
 //                                                     event.target.value
 //                                                 )
 //                                             }
+//                                             placeholder="20.00"
 //                                         />
 
 //                                         <small className="text-muted">
-//                                             Example: $50 = 5000 cents.
+//                                             Enter the price directly, e.g. $20 or $25.50.
 //                                         </small>
 
 //                                     </div>
-
 
 //                                     <div className="col-lg-6 col-md-6 col-sm-12">
 
@@ -2174,9 +2172,7 @@
 
 //                                         <select
 //                                             className="form-select"
-//                                             value={
-//                                                 form.startingPriceCurrency
-//                                             }
+//                                             value={form.startingPriceCurrency}
 //                                             onChange={(event) =>
 //                                                 updateForm(
 //                                                     'startingPriceCurrency',
@@ -2184,27 +2180,11 @@
 //                                                 )
 //                                             }
 //                                         >
-
-//                                             <option value="USD">
-//                                                 USD
-//                                             </option>
-
-//                                             <option value="GBP">
-//                                                 GBP
-//                                             </option>
-
-//                                             <option value="EUR">
-//                                                 EUR
-//                                             </option>
-
-//                                             <option value="CAD">
-//                                                 CAD
-//                                             </option>
-
-//                                             <option value="INR">
-//                                                 INR
-//                                             </option>
-
+//                                             <option value="USD">USD</option>
+//                                             <option value="GBP">GBP</option>
+//                                             <option value="EUR">EUR</option>
+//                                             <option value="CAD">CAD</option>
+//                                             <option value="INR">INR</option>
 //                                         </select>
 
 //                                     </div>
@@ -2213,7 +2193,7 @@
 
 //                                 <div className="row g-3 mt-1">
 
-//                                     <div className="col-lg-3 col-md-6 col-sm-12">
+//                                     <div className="col-lg-4 col-md-6 col-sm-12">
 
 //                                         <div className="form-check form-switch mt-4">
 //                                             <input
@@ -2222,7 +2202,10 @@
 //                                                 id="discountEnabled"
 //                                                 checked={form.discountEnabled}
 //                                                 onChange={(event) =>
-//                                                     updateForm('discountEnabled', event.target.checked)
+//                                                     updateForm(
+//                                                         'discountEnabled',
+//                                                         event.target.checked
+//                                                     )
 //                                                 }
 //                                             />
 
@@ -2236,49 +2219,31 @@
 
 //                                     </div>
 
-//                                     <div className="col-lg-3 col-md-6 col-sm-12">
+//                                     <div className="col-lg-4 col-md-6 col-sm-12">
 
 //                                         <label className="form-label">
-//                                             Discount Type
-//                                         </label>
-
-//                                         <select
-//                                             className="form-select"
-//                                             value={form.discountType}
-//                                             onChange={(event) =>
-//                                                 updateForm('discountType', event.target.value)
-//                                             }
-//                                             disabled={!form.discountEnabled}
-//                                         >
-//                                             <option value="percentage">Percentage</option>
-//                                             <option value="fixed">Fixed Amount</option>
-//                                         </select>
-
-//                                     </div>
-
-//                                     <div className="col-lg-3 col-md-6 col-sm-12">
-
-//                                         <label className="form-label">
-//                                             Discount Value
+//                                             Discount Amount
 //                                         </label>
 
 //                                         <input
 //                                             type="number"
 //                                             min="0"
-//                                             max={form.discountType === 'percentage' ? '100' : undefined}
 //                                             step="0.01"
 //                                             className="form-control"
 //                                             value={form.discountValue}
 //                                             onChange={(event) =>
-//                                                 updateForm('discountValue', event.target.value)
+//                                                 updateForm(
+//                                                     'discountValue',
+//                                                     event.target.value
+//                                                 )
 //                                             }
 //                                             disabled={!form.discountEnabled}
-//                                             placeholder={form.discountType === 'percentage' ? '20' : '1500'}
+//                                             placeholder="5.00"
 //                                         />
 
 //                                     </div>
 
-//                                     <div className="col-lg-3 col-md-6 col-sm-12">
+//                                     <div className="col-lg-4 col-md-6 col-sm-12">
 
 //                                         <label className="form-label">
 //                                             Discount Currency
@@ -2288,9 +2253,12 @@
 //                                             className="form-select"
 //                                             value={form.discountCurrency}
 //                                             onChange={(event) =>
-//                                                 updateForm('discountCurrency', event.target.value)
+//                                                 updateForm(
+//                                                     'discountCurrency',
+//                                                     event.target.value
+//                                                 )
 //                                             }
-//                                             disabled={!form.discountEnabled || form.discountType !== 'fixed'}
+//                                             disabled={!form.discountEnabled}
 //                                         >
 //                                             <option value="USD">USD</option>
 //                                             <option value="GBP">GBP</option>
@@ -3148,34 +3116,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -3184,7 +3124,9 @@ import Swal from 'sweetalert2'
 import 'react-quill-new/dist/quill.snow.css'
 import './Service.css'
 
-const API = 'http://localhost:8000/api'
+import Url from '@/Url'
+
+const API = `${Url}/api`
 
 const serviceApi = `${API}/services`
 const categoryApi = `${API}/categories`
